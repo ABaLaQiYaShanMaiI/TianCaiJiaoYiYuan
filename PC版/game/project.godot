@@ -1,0 +1,53 @@
+; Engine configuration file.
+; Reconstructed from the Android export's project.binary.
+; Engine: Godot 4.7 (.NET) | C# assembly: BubbleYears | Renderer: GL Compatibility
+config_version=5
+
+[application]
+
+config/name="天才交易员 DEMO"
+run/main_scene="res://ui/scenes/retro-main.scn"
+config/features=PackedStringArray("4.7", "C#", "GL Compatibility")
+config/icon="res://icon.svg"
+config/use_custom_user_dir=true
+config/custom_user_dir_name="Godot/app_userdata/泡沫年代 - Bubble Years"
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/show_image=false
+
+[display]
+
+window/size/viewport_width=800
+window/size/viewport_height=500
+window/size/window_width_override=1600
+window/size/window_height_override=1000
+window/size/min_width=800
+window/size/min_height=500
+window/size/min_width.mobile=0
+window/size/min_height.mobile=0
+window/stretch/mode="canvas_items"
+window/stretch/scale_mode="integer"
+window/stretch/scale_mode.mobile="fractional"
+
+[dotnet]
+
+project/assembly_name="BubbleYears"
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+pointing/emulate_mouse_from_touch=true
+
+[editor_plugins]
+
+enabled=PackedStringArray()
+
+[physics]
+
+3d/physics_engine="Jolt Physics"
+
+[rendering]
+
+rendering_device/driver.windows="d3d12"
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true

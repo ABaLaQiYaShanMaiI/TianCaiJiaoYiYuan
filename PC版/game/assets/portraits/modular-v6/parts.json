@@ -1,0 +1,683 @@
+{
+  "version": 6,
+  "frame": [
+    0,
+    -30,
+    256,
+    520
+  ],
+  "faceFrame": [
+    54,
+    0,
+    148,
+    164
+  ],
+  "bodies": [
+    {
+      "name": "男性",
+      "sheet": "bodies",
+      "source": [
+        219,
+        207,
+        432,
+        503
+      ],
+      "anchor": "head",
+      "offset": [
+        -54,
+        0
+      ],
+      "size": [
+        108,
+        125.75
+      ]
+    },
+    {
+      "name": "女性",
+      "sheet": "bodies",
+      "source": [
+        894,
+        243,
+        417,
+        473
+      ],
+      "anchor": "head",
+      "offset": [
+        -51,
+        0
+      ],
+      "size": [
+        102,
+        115.69784
+      ]
+    }
+  ],
+  "hair": [
+    {
+      "name": "利落短发",
+      "sheet": "hair",
+      "source": [
+        50,
+        72,
+        304,
+        280
+      ],
+      "anchor": "head",
+      "offset": [
+        -68,
+        -15
+      ],
+      "size": [
+        136,
+        125
+      ]
+    },
+    {
+      "name": "偏分短发",
+      "sheet": "hair",
+      "source": [
+        416,
+        62,
+        320,
+        285
+      ],
+      "anchor": "head",
+      "offset": [
+        -69,
+        -17
+      ],
+      "size": [
+        138,
+        123
+      ]
+    },
+    {
+      "name": "齐颌直发",
+      "sheet": "hair",
+      "source": [
+        770,
+        84,
+        372,
+        359
+      ],
+      "anchor": "head",
+      "offset": [
+        -73,
+        -18
+      ],
+      "size": [
+        146,
+        148
+      ]
+    },
+    {
+      "name": "波浪短发",
+      "sheet": "hair",
+      "source": [
+        1150,
+        88,
+        378,
+        359
+      ],
+      "anchor": "head",
+      "offset": [
+        -76,
+        -18
+      ],
+      "size": [
+        152,
+        148
+      ]
+    },
+    {
+      "name": "高马尾",
+      "sheet": "hair",
+      "source": [
+        24,
+        486,
+        349,
+        490
+      ],
+      "anchor": "head",
+      "offset": [
+        -74,
+        -51
+      ],
+      "size": [
+        143,
+        205
+      ]
+    },
+    {
+      "name": "柔软卷发",
+      "sheet": "hair",
+      "source": [
+        391,
+        558,
+        376,
+        338
+      ],
+      "anchor": "head",
+      "offset": [
+        -76,
+        -14
+      ],
+      "size": [
+        152,
+        137
+      ]
+    },
+    {
+      "name": "披肩长发",
+      "sheet": "hair",
+      "source": [
+        1160,
+        504,
+        366,
+        490
+      ],
+      "anchor": "head",
+      "offset": [
+        -71,
+        -24
+      ],
+      "size": [
+        144,
+        193
+      ]
+    }
+  ],
+  "clothes": [
+    {
+      "name": "丝带女式衬衫",
+      "sheet": "clothes",
+      "source": [
+        20,
+        15,
+        364,
+        457
+      ],
+      "anchor": "neckFemale",
+      "offset": [
+        -114.3544,
+        0
+      ],
+      "size": [
+        222,
+        278.71978
+      ]
+    },
+    {
+      "name": "短款女士外套",
+      "sheet": "clothes",
+      "source": [
+        401,
+        15,
+        367,
+        456
+      ],
+      "anchor": "neckFemale",
+      "offset": [
+        -114.02452,
+        0
+      ],
+      "size": [
+        222,
+        275.83651
+      ]
+    },
+    {
+      "name": "交叠系带衬衫",
+      "sheet": "clothes",
+      "source": [
+        768,
+        15,
+        372,
+        456
+      ],
+      "anchor": "neckFemale",
+      "offset": [
+        -107.12097,
+        0
+      ],
+      "size": [
+        222,
+        272.12903
+      ]
+    },
+    {
+      "name": "女士针织开衫",
+      "sheet": "clothes",
+      "source": [
+        1152,
+        15,
+        362,
+        456
+      ],
+      "anchor": "neckFemale",
+      "offset": [
+        -109.46685,
+        0
+      ],
+      "size": [
+        222,
+        279.64641
+      ]
+    },
+    {
+      "name": "收腰女士外套",
+      "sheet": "clothes",
+      "source": [
+        1152,
+        494,
+        370,
+        480
+      ],
+      "anchor": "neckFemale",
+      "offset": [
+        -106.5,
+        0
+      ],
+      "size": [
+        222,
+        288.0
+      ]
+    },
+    {
+      "name": "半高领针织衫",
+      "sheet": "clothes",
+      "source": [
+        399,
+        494,
+        363,
+        479
+      ],
+      "anchor": "neckFemale",
+      "offset": [
+        -113.70732,
+        0
+      ],
+      "size": [
+        218.39024,
+        288.17886
+      ]
+    },
+    {
+      "name": "立领丝带衬衫",
+      "sheet": "clothes",
+      "source": [
+        768,
+        494,
+        375,
+        479
+      ],
+      "anchor": "neckFemale",
+      "offset": [
+        -107.744,
+        0
+      ],
+      "size": [
+        222,
+        283.568
+      ]
+    }
+  ],
+  "hats": [
+    {
+      "name": "不戴帽",
+      "sheet": "",
+      "source": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "anchor": "head",
+      "offset": [
+        -128,
+        -22
+      ],
+      "size": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "贝雷帽",
+      "sheet": "accessories",
+      "source": [
+        14,
+        117,
+        437,
+        265
+      ],
+      "anchor": "head",
+      "offset": [
+        -73,
+        -32
+      ],
+      "size": [
+        146,
+        86
+      ]
+    },
+    {
+      "name": "针织帽",
+      "sheet": "accessories",
+      "source": [
+        480,
+        100,
+        384,
+        301
+      ],
+      "anchor": "head",
+      "offset": [
+        -66,
+        -46
+      ],
+      "size": [
+        132,
+        98
+      ]
+    },
+    {
+      "name": "棒球帽",
+      "sheet": "accessories",
+      "source": [
+        920,
+        134,
+        378,
+        268
+      ],
+      "anchor": "head",
+      "offset": [
+        -70,
+        -30
+      ],
+      "size": [
+        140,
+        83
+      ]
+    }
+  ],
+  "faceAccessories": [
+    {
+      "name": "无面饰",
+      "sheet": "",
+      "source": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "anchor": "eyes",
+      "offset": [
+        -128,
+        -90
+      ],
+      "size": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "方框眼镜",
+      "sheet": "accessories",
+      "source": [
+        1346,
+        284,
+        411,
+        119
+      ],
+      "anchor": "eyes",
+      "offset": [
+        -48,
+        -12
+      ],
+      "size": [
+        96,
+        28
+      ]
+    },
+    {
+      "name": "圆框眼镜",
+      "sheet": "accessories",
+      "source": [
+        31,
+        605,
+        410,
+        157
+      ],
+      "anchor": "eyes",
+      "offset": [
+        -47,
+        -13
+      ],
+      "size": [
+        94,
+        36
+      ]
+    },
+    {
+      "name": "通讯耳麦",
+      "sheet": "accessories",
+      "source": [
+        557,
+        477,
+        298,
+        345
+      ],
+      "anchor": "eyes",
+      "offset": [
+        -53,
+        -64
+      ],
+      "size": [
+        119,
+        138
+      ]
+    },
+    {
+      "name": "口罩",
+      "sheet": "accessories",
+      "source": [
+        910,
+        574,
+        427,
+        232
+      ],
+      "anchor": "eyes",
+      "offset": [
+        -50,
+        14
+      ],
+      "size": [
+        100,
+        54
+      ]
+    },
+    {
+      "name": "耳钉",
+      "sheet": "accessories",
+      "source": [
+        1444,
+        653,
+        76,
+        60
+      ],
+      "anchor": "eyes",
+      "offset": [
+        -54,
+        15
+      ],
+      "size": [
+        7,
+        6
+      ]
+    }
+  ],
+  "clothesMale": [
+    {
+      "name": "炭灰西服",
+      "sheet": "clothes-male",
+      "source": [
+        18,
+        26,
+        366,
+        462
+      ],
+      "anchor": "neckMale",
+      "offset": [
+        -130.13115,
+        0
+      ],
+      "size": [
+        252,
+        318.09836
+      ]
+    },
+    {
+      "name": "藏蓝三件套",
+      "sheet": "clothes-male",
+      "source": [
+        395,
+        26,
+        373,
+        461
+      ],
+      "anchor": "neckMale",
+      "offset": [
+        -126.0,
+        0
+      ],
+      "size": [
+        252,
+        311.45308
+      ]
+    },
+    {
+      "name": "浅灰西服",
+      "sheet": "clothes-male",
+      "source": [
+        771,
+        26,
+        372,
+        462
+      ],
+      "anchor": "neckMale",
+      "offset": [
+        -127.35484,
+        0
+      ],
+      "size": [
+        252,
+        312.96774
+      ]
+    },
+    {
+      "name": "深棕西服",
+      "sheet": "clothes-male",
+      "source": [
+        1152,
+        26,
+        368,
+        462
+      ],
+      "anchor": "neckMale",
+      "offset": [
+        -123.94565,
+        0
+      ],
+      "size": [
+        252,
+        316.36957
+      ]
+    },
+    {
+      "name": "正装马甲",
+      "sheet": "clothes-male",
+      "source": [
+        21,
+        520,
+        363,
+        454
+      ],
+      "anchor": "neckMale",
+      "offset": [
+        -129.12397,
+        0
+      ],
+      "size": [
+        252,
+        315.17355
+      ]
+    },
+    {
+      "name": "墨绿西服",
+      "sheet": "clothes-male",
+      "source": [
+        395,
+        518,
+        373,
+        458
+      ],
+      "anchor": "neckMale",
+      "offset": [
+        -126.3378,
+        0
+      ],
+      "size": [
+        252,
+        309.42627
+      ]
+    },
+    {
+      "name": "双排扣西服",
+      "sheet": "clothes-male",
+      "source": [
+        771,
+        518,
+        373,
+        458
+      ],
+      "anchor": "neckMale",
+      "offset": [
+        -126.6756,
+        0
+      ],
+      "size": [
+        252,
+        309.42627
+      ]
+    }
+  ],
+  "anchors": {
+    "head": [
+      128,
+      22
+    ],
+    "eyes": [
+      128,
+      90
+    ],
+    "neck": [
+      128,
+      158
+    ],
+    "neckFemale": [
+      128,
+      120
+    ],
+    "neckMale": [
+      128,
+      124
+    ]
+  },
+  "sheets": {
+    "bodies": "res://assets/portraits/modular-v6/heads.png",
+    "hair": "res://assets/portraits/modular-v4/hair.png",
+    "clothes": "res://assets/portraits/modular-v6/torso-female.png",
+    "clothes-male": "res://assets/portraits/modular-v6/torso-male.png",
+    "accessories": "res://assets/portraits/modular-v4/accessories.png"
+  }
+}

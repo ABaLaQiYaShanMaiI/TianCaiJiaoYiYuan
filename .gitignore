@@ -1,0 +1,22 @@
+# ===== 不入库：原始安卓包与解包资料（体积过大 / 版权归属原游戏）=====
+/gt-mod3.apk
+/resources/
+/sources/
+/BubbleYears-PC-port/
+
+# ===== 不入库：Godot 4.7.2 .NET 运行器（约 257 MB，请按 README 自行下载）=====
+/PC版/engine/
+
+# ===== 不入库：构建产物 / 中间产物 =====
+/PC版/game/.godot/mono/temp/
+/PC版/game/.godot/mono/metadata/
+/PC版/game/.godot/editor/
+/PC版/game/assemblies/desktop/
+/PC版/game/build/
+**/bin/
+**/obj/
+
+# ===== 系统垃圾 =====
+Thumbs.db
+desktop.ini
+.DS_Store

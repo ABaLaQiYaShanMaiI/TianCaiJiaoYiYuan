@@ -1,0 +1,25 @@
+<Project Sdk="Godot.NET.Sdk/4.7.2">
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <AssemblyName>BubbleYears</AssemblyName>
+    <RootNamespace>BubbleYears</RootNamespace>
+    <!-- 本工程只是一个“构建壳”：不编译任何源码，构建后把预编译（含补丁）程序集复制到输出目录。 -->
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateDependencyFile>false</GenerateDependencyFile>
+    <NoWarn>$(NoWarn);CS8618</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="build_shell\ShellMarker.cs" />
+  </ItemGroup>
+  <Target Name="CopyPrebuiltAssemblies" AfterTargets="Build">
+    <ItemGroup>
+      <PrebuiltFiles Include="$(MSBuildProjectDirectory)\assemblies\patched\BubbleYears.dll" />
+      <PrebuiltFiles Include="$(MSBuildProjectDirectory)\assemblies\patched\BubbleYears.Simulation.dll" />
+      <PrebuiltFiles Include="$(MSBuildProjectDirectory)\build_shell\BubbleYears.deps.json" />
+    </ItemGroup>
+    <Copy SourceFiles="@(PrebuiltFiles)" DestinationFolder="$(TargetDir)" OverwriteReadOnlyFiles="true" />
+    <Message Importance="high" Text="[port] 已用预编译程序集覆盖输出：$(TargetDir)" />
+  </Target>
+</Project>

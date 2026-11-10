@@ -1,0 +1,40 @@
+{
+ "_custom_features": "dotnet",
+ "application/config/name": "天才交易员 DEMO",
+ "application/run/main_scene": "res://ui/scenes/retro-main.tscn",
+ "application/config/use_custom_user_dir": true,
+ "application/config/custom_user_dir_name": "Godot/app_userdata/泡沫年代 - Bubble Years",
+ "application/config/features": [
+  "4.7\u0000",
+  "C#\u0000",
+  "\u0000GL Compatibility\u0000\u0000\u0000\u0000"
+ ],
+ "application/boot_splash/bg_color": [
+  0.0,
+  0.0,
+  0.0,
+  1.0
+ ],
+ "application/boot_splash/show_image": false,
+ "application/config/icon": "res://icon.svg",
+ "display/window/size/viewport_width": 800,
+ "display/window/size/viewport_height": 500,
+ "display/window/size/window_width_override": 1600,
+ "display/window/size/window_height_override": 1000,
+ "display/window/stretch/mode": "canvas_items",
+ "display/window/stretch/scale_mode": "integer",
+ "display/window/stretch/scale_mode.mobile": "fractional",
+ "display/window/size/min_width": 800,
+ "display/window/size/min_height": 500,
+ "display/window/size/min_width.mobile": 0,
+ "display/window/size/min_height.mobile": 0,
+ "dotnet/project/assembly_name": "BubbleYears",
+ "editor_plugins/enabled": [
+  "res://addons/godot_mcp_bridge/plugin.cfg\u0000"
+ ],
+ "physics/3d/physics_engine": "Jolt Physics",
+ "rendering/rendering_device/driver.windows": "d3d12",
+ "rendering/renderer/rendering_method": "gl_compatibility",
+ "rendering/renderer/rendering_method.mobile": "gl_compatibility",
+ "rendering/textures/vram_compression/import_etc2_astc": true
+}
