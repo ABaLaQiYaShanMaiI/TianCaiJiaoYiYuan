@@ -95,3 +95,35 @@ PC版\
 - `CheckHeroTraits(7 个正面特质)` → `Valid=True`
 - `NewCareer(能力=999×6, 总和 5994, 7 个正面特质)` → 成功，能力原样保存
 - `SaveCodec` 世界编解码往返一致；`SaveRepository` 写入/读回/列表/最新档定位全部通过
+
+---
+
+## 六、存档诊断工具（新增）与"单文件 exe"进展
+
+### 1. 存档工具（详见 `存档问题-诊断与修复.md`）
+- `存档自检.bat`：逐槽位检查可读性 + 世界数据往返校验，直接打印失败原因
+- `存档备份.bat`：把 `saves` 目录打包成 zip
+- `存档修复.bat`：主文件损坏时用 `.bak` 恢复
+- 源码在 `_移植工具\savedoctor\`，界面机器人（用于真实点击回归）在 `game\bot\`
+
+### 3. 日志与诊断（新增）
+- 日志目录：`%APPDATA%\Godot\app_userdata\泡沫年代 - Bubble Years\logs\`
+  - `game.log`：引擎日志 + C# 异常栈 + 游戏的"保存失败/读取存档失败"原因（`debug/file_logging` 已开启，保留 20 份）
+  - `save-activity.log`：启动自检（引擎/系统/路径/可写性/现有存档）+ 每个存档文件的新建/更新/删除
+- 新增自动加载 `game\port\diagnostics.gd`（GDScript，不影响 C# 逻辑）
+- 三个入口：`查看游戏日志.bat` / `存档自检.bat` / `导出诊断包.bat`（打包 logs+saves+报告+系统信息）
+- 已实测：把 `saves` 占位成同名文件触发保存 → `game.log` 记录
+  `保存失败：Cannot create '...\saves' because a file or directory with the same name already exists.`
+
+### 2. 单文件 exe：已尝试、暂未采用
+尝试过「自研 PCK 打包 + 官方 Windows 模板 exe」路线（资源完全复用、不依赖导出器的资源扫描）：
+
+- ✅ PCK 本身可用：纹理/字体/音频/C# 程序集都能从包里正常加载
+- ❌ 但 release 模板运行时会崩（`0xC0000005`）或挂起：
+  - 用文本 `project.godot` → 加载 C# 脚本时崩溃
+  - 换用 `project.binary` → 不崩溃但主循环卡住
+- 已排除程序集补丁因素（换回未打补丁的原版 DLL 同样崩）
+
+结论：**官方 `--export-release` 仍是唯一稳妥的单文件路径**，而它依赖"源资源存在"。
+因此下一步要么补齐原始美术/字体/音频源文件（方案 A/B），要么继续深挖模板对 pck 的额外要求。
+当前交付仍采用已验证 100% 可用的「引擎 + 工程目录 + 启动脚本」形态。
