@@ -56,8 +56,7 @@ func _log_header() -> void:
 			var items := PackedStringArray()
 			while n != "":
 				if not da.current_is_dir() and n.ends_with(".json"):
-					var p := saves.path_join(n)
-					items.append("%s(%d B)" % [n, FileAccess.get_file_as_bytes(p).size()])
+					items.append(n)
 				n = da.get_next()
 			da.list_dir_end()
 			sb.append("saves       : %s" % ("、".join(items) if items.size() > 0 else "（空）"))
@@ -78,11 +77,11 @@ func _scan() -> void:
 		return
 	# 新增 / 变化
 	for path in now.keys():
-		var cur: Vector2i = now[path]
+		var cur: int = now[path]
 		if not _known.has(path):
-			_append(ACTIVITY_LOG, "[%s] 新建  %s  %d B" % [_ts(), path, cur.x])
+			_append(ACTIVITY_LOG, "[%s] 新建  %s" % [_ts(), path])
 		elif _known[path] != cur:
-			_append(ACTIVITY_LOG, "[%s] 更新  %s  %d B -> %d B" % [_ts(), path, (_known[path] as Vector2i).x, cur.x])
+			_append(ACTIVITY_LOG, "[%s] 更新  %s" % [_ts(), path])
 	# 删除
 	for path in _known.keys():
 		if not now.has(path):
@@ -100,13 +99,17 @@ func _collect(base: String, rel: String, out: Dictionary) -> void:
 		if n == "." or n == "..":
 			n = da.get_next()
 			continue
+		# 跳过临时文件，避免与游戏写盘冲突
+		if n.ends_with(".tmp"):
+			n = da.get_next()
+			continue
 		var rel_child := n if rel == "" else rel.path_join(n)
 		var abs_child := dir_abs.path_join(n)
 		if da.current_is_dir():
 			_collect(base, rel_child, out)
 		else:
-			var size := FileAccess.get_file_as_bytes(abs_child).size()
-			out[rel_child] = Vector2i(size, FileAccess.get_modified_time(abs_child))
+			# 只用 stat 取修改时间，不打开文件内容（否则会和存档写入抢句柄）
+			out[rel_child] = FileAccess.get_modified_time(abs_child)
 		n = da.get_next()
 	da.list_dir_end()
 

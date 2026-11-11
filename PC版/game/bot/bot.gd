@@ -31,6 +31,32 @@ func _ready() -> void:
 		_dir_list()
 	elif mode == "overwrite":
 		await _overwrite_flow()
+	elif mode == "resave":
+		await _press("FrontLoad")
+		await _frames(90)
+		print("BOT: slots = ", _find("Slotmanual-1") != null)
+		await _press("Slotmanual-1")
+		await _frames(240)
+		print("BOT: loaded, sessionStarted=", game.get("_sessionStarted"), " dialog=", game.get("_dialog") != null)
+		for attempt in 6:
+			if game.get("_dialog") == null:
+				break
+			game.notification(1007)
+			await _frames(20)
+		if not await _open_pause():
+			print("BOT: [FAIL] 暂停菜单未打开")
+			return
+		await _press("PauseSave")
+		await _frames(90)
+		print("BOT: save dialog slot2 = ", _find("Slotmanual-2") != null)
+		await _press("Slotmanual-2")
+		await _frames(40)
+		if _find("Slotmanual-2") != null and game.get("_dialog") != null:
+			await _press_text("确认")
+		await _frames(240)
+		print("BOT: resave done busy=", game.get("_persistenceBusy"))
+		_dump_dialog()
+		_dir_list()
 	elif mode == "loadpause":
 		await _loadpause_flow()
 	else:

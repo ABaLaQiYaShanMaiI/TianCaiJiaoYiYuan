@@ -40,6 +40,13 @@ PC版\
 - `GameSession.HeroTraitBudget` 的 5 点预算、以及"最多 3 个正面特质"的限制：**已解除**
   （`CheckHeroTraits` 现在恒返回 `Valid = true`，正面计数固定为 0，UI 不再禁用按钮）
 - 提示文案已同步改为"正面特质数量不限，负面特质返还点数。"
+
+### 2.1 存档失败修复（2026-11-11，v1.0.1）
+- **`GameSession.ValidateExpansion`**：把 `Need(PaidUpdateVersion <= p.Version, "联网运营")` 这一处调用替换为空实现
+  （某款联网运营产品的付费更新版本号超前时，原版会直接抛异常导致**永远存不上档**；其余校验全部保留）
+- **诊断脚本**：改为只取文件修改时间（stat），不再读取存档内容，避免与游戏写盘抢句柄
+  （原来会导致 `保存失败：The process cannot access the file because it is being used by another process.`）
+- **提示文案**：保存/关窗失败时改为提示"原因见 logs\\game.log"，不再一律说"磁盘空间和权限"
 - 结果：正面/负面特质可以任意组合、任意数量选择；开局不再因特质被拦
 
 ### 3) 存档相关
