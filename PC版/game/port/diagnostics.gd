@@ -10,9 +10,22 @@ const ACTIVITY_LOG := "user://logs/save-activity.log"
 const ACTIVITY_MAX_BYTES := 2 * 1024 * 1024
 
 var _timer: Timer
-var _known := {}          # path -> Vector2i(size, mtime)
+var _known := {}          # path -> mtime
 var _first_scan_done := false
 var _warned_unwritable := false
+
+# ---- 性能采样 ----
+const PERF_LOG := "user://logs/performance.log"
+const PERF_INTERVAL := 1.0
+const SPIKE_MS := 33.0          # 超过 33ms 记一次尖峰（60fps 预算）
+var _perf_timer: Timer
+var _perf_frames := 0
+var _perf_sum_ms := 0.0
+var _perf_max_ms := 0.0
+var _perf_spikes := 0
+var _perf_window_start := 0
+var _perf_peak_objs := 0
+var _perf_peak_draw := 0
 
 func _ready() -> void:
 	DirAccess.make_dir_recursive_absolute("user://logs")
@@ -23,6 +36,46 @@ func _ready() -> void:
 	_timer.timeout.connect(_scan)
 	add_child(_timer)
 	_scan()
+
+	_perf_timer = Timer.new()
+	_perf_timer.wait_time = PERF_INTERVAL
+	_perf_timer.autostart = true
+	_perf_timer.timeout.connect(_flush_perf)
+	add_child(_perf_timer)
+	_perf_window_start = Time.get_ticks_msec()
+
+func _process(delta: float) -> void:
+	var ms := delta * 1000.0
+	_perf_frames += 1
+	_perf_sum_ms += ms
+	if ms > _perf_max_ms:
+		_perf_max_ms = ms
+	if ms >= SPIKE_MS:
+		_perf_spikes += 1
+	var objs := int(Performance.get_monitor(Performance.OBJECT_COUNT))
+	if objs > _perf_peak_objs:
+		_perf_peak_objs = objs
+	var draw := int(Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME))
+	if draw > _perf_peak_draw:
+		_perf_peak_draw = draw
+
+func _flush_perf() -> void:
+	if _perf_frames <= 0:
+		return
+	var avg: float = _perf_sum_ms / float(_perf_frames)
+	var fps: float = 1000.0 / maxf(avg, 0.001)
+	var objs: int = int(Performance.get_monitor(Performance.OBJECT_COUNT))
+	var draw: int = int(Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME))
+	_append(PERF_LOG, "[%s] fps=%5.1f  avg=%5.1fms  max=%6.1fms  尖峰(>=%.0fms)=%d  frames=%d  对象=%d  峰值对象=%d  drawcall=%d" % [
+		_ts(), fps, avg, _perf_max_ms, SPIKE_MS, _perf_spikes, _perf_frames,
+		objs, _perf_peak_objs, draw])
+	_perf_frames = 0
+	_perf_sum_ms = 0.0
+	_perf_max_ms = 0.0
+	_perf_spikes = 0
+	_perf_peak_objs = 0
+	_perf_peak_draw = 0
+	_perf_window_start = Time.get_ticks_msec()
 
 func _log_header() -> void:
 	var sb := PackedStringArray()
@@ -69,20 +122,28 @@ func _scan() -> void:
 			_warned_unwritable = true
 			_append(ACTIVITY_LOG, "[%s] 存档目录尚不存在（游戏保存后会自动创建）：%s" % [_ts(), saves])
 		return
+	# 只监视槽位主文件（* .json），不递归进 *.parts（里面有几千个分片，既慢又吵）
 	var now := {}
-	_collect(saves, "", now)
+	var da := DirAccess.open(saves)
+	if da == null:
+		return
+	da.list_dir_begin()
+	var n := da.get_next()
+	while n != "":
+		if not da.current_is_dir() and n.ends_with(".json"):
+			now[n] = FileAccess.get_modified_time(saves.path_join(n))
+		n = da.get_next()
+	da.list_dir_end()
 	if not _first_scan_done:
 		_first_scan_done = true
 		_known = now
 		return
-	# 新增 / 变化
 	for path in now.keys():
 		var cur: int = now[path]
 		if not _known.has(path):
 			_append(ACTIVITY_LOG, "[%s] 新建  %s" % [_ts(), path])
 		elif _known[path] != cur:
 			_append(ACTIVITY_LOG, "[%s] 更新  %s" % [_ts(), path])
-	# 删除
 	for path in _known.keys():
 		if not now.has(path):
 			_append(ACTIVITY_LOG, "[%s] 删除  %s" % [_ts(), path])

@@ -10,9 +10,12 @@ func _ready() -> void:
 	var ps: PackedScene = load("res://ui/scenes/retro-main.scn")
 	game = ps.instantiate()
 	add_child(game)
-	for i in 30:
+	# 等待 C# 控制器异步完成 _Ready / 启动动画 / 首页构建（最多 ~30 秒）
+	for i in 1800:
 		await get_tree().process_frame
-	print("BOT: scene up, sessionStarted=", game.get("_sessionStarted"))
+		if game.find_child("FrontNew", true, false) != null:
+			break
+	print("BOT: scene up, sessionStarted=", game.get("_sessionStarted"), " FrontNew=", game.find_child("FrontNew", true, false) != null)
 
 	if mode == "save":
 		await _save_flow()
@@ -57,6 +60,29 @@ func _ready() -> void:
 		print("BOT: resave done busy=", game.get("_persistenceBusy"))
 		_dump_dialog()
 		_dir_list()
+	elif mode == "perf":
+		await _new_game()
+		print("BOT: perf 采样开始（静置 25 秒）")
+		await _frames(60 * 25)
+		print("BOT: perf 采样结束")
+		_dir_list()
+	elif mode == "keys":
+		await _new_game()
+		await _frames(60)
+		var qk = get_node_or_null("/root/PortQuickKeys")
+		print("QK: autoload=", qk != null)
+		game.notification(1007)
+		await _frames(40)
+		print("QK: pause open=", _find("PauseSave") != null)
+		qk.quick_save()
+		await _frames(240)
+		print("QK: after quick_save")
+		_dir_list()
+		game.notification(1007)
+		await _frames(40)
+		qk.quick_load()
+		await _frames(300)
+		print("QK: after quick_load, session=", game.get("_sessionStarted"), " dialog=", game.get("_dialog") != null)
 	elif mode == "loadpause":
 		await _loadpause_flow()
 	else:

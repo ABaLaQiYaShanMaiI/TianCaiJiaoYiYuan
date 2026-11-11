@@ -113,16 +113,24 @@ PC版\
 - `存档修复.bat`：主文件损坏时用 `.bak` 恢复
 - 源码在 `_移植工具\savedoctor\`，界面机器人（用于真实点击回归）在 `game\bot\`
 
-### 3. 日志与诊断（新增）
+### 2. 日志与诊断
 - 日志目录：`%APPDATA%\Godot\app_userdata\泡沫年代 - Bubble Years\logs\`
   - `game.log`：引擎日志 + C# 异常栈 + 游戏的"保存失败/读取存档失败"原因（`debug/file_logging` 已开启，保留 20 份）
   - `save-activity.log`：启动自检（引擎/系统/路径/可写性/现有存档）+ 每个存档文件的新建/更新/删除
-- 新增自动加载 `game\port\diagnostics.gd`（GDScript，不影响 C# 逻辑）
-- 三个入口：`查看游戏日志.bat` / `存档自检.bat` / `导出诊断包.bat`（打包 logs+saves+报告+系统信息）
+  - `performance.log`：每秒一行 FPS / 帧时 / 尖峰 / 对象数 / drawcall（v1.0.3 新增）
+- 新增自动加载 `game\port\diagnostics.gd`、`game\port\quickkeys.gd`（纯 GDScript，不影响 C# 逻辑）
+- 入口：`查看游戏日志.bat` / `存档自检.bat` / `导出诊断包.bat` / `清理存档冗余.bat`
 - 已实测：把 `saves` 占位成同名文件触发保存 → `game.log` 记录
   `保存失败：Cannot create '...\saves' because a file or directory with the same name already exists.`
 
-### 2. 单文件 exe：已尝试、暂未采用
+### 3. v1.0.3 性能与体感（详见 `性能与体验-v1.0.3.md`）
+- 解除 `Engine.MaxFps = 60` 硬上限（高刷屏不再节奏顿挫）
+- 诊断扫描只盯 `saves/*.json`，不再递归 4500 个分片
+- 游戏内快捷键：**F1 帮助 / F5 快速保存 / F9 快速读档 / F11 全屏 / F3 性能浮层**
+- `存档自检.bat` 增加磁盘占用明细（你的 4 个槽合计约 648 MB，属"滑动存档窗口"设计）
+- `清理存档冗余.bat`：只删孤儿 `.parts` 与残留 `*.tmp`
+
+### 4. 单文件 exe：已尝试、暂未采用
 尝试过「自研 PCK 打包 + 官方 Windows 模板 exe」路线（资源完全复用、不依赖导出器的资源扫描）：
 
 - ✅ PCK 本身可用：纹理/字体/音频/C# 程序集都能从包里正常加载

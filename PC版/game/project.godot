@@ -17,6 +17,7 @@ boot_splash/show_image=false
 [autoload]
 
 PortDiagnostics="*res://port/diagnostics.gd"
+PortQuickKeys="*res://port/quickkeys.gd"
 
 [debug]
 
