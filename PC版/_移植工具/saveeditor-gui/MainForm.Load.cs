@@ -31,6 +31,7 @@ public partial class MainForm
             _binding = false;
 
             BuildPeopleList();
+            AutoSelectFirstEmployee();
             _dirty = false;
             lblStatus.Text = $"已读取 {key}：第 {_world.Day} 天 / {_firm.Name} / 员工 {_people.Count} 人";
         }
@@ -43,6 +44,14 @@ public partial class MainForm
         {
             btnLoad.Enabled = true; btnSave.Enabled = true;
         }
+    }
+
+    private void AutoSelectFirstEmployee()
+    {
+        if (lvPeople.Items.Count == 0) return;
+        lvPeople.Items[0].Selected = true;
+        lvPeople.Select();
+        if (lvPeople.Items[0].Tag is Employee e) BindEmployee(e);
     }
 
     private void BuildPeopleList()
@@ -154,6 +163,18 @@ public partial class MainForm
             BindEmployee((Employee)lvPeople.Items[0].Tag);
             Application.DoEvents();
             sb.AppendLine($"选中第1人: 姓名={txtName.Text}  智力={nums[0].Value}  满意度={numSati.Value}  特质勾选={clbTraits.CheckedItems.Count}");
+
+            // ① 特质多选测试：勾两项，看是否都写进模型
+            clbTraits.SetItemChecked(0, true);
+            clbTraits.SetItemChecked(1, true);
+            Application.DoEvents();
+            var tl = _sel.Traits ?? new List<string>();
+            sb.AppendLine($"特质多选: 勾2项 -> 模型特质数={tl.Count} 含[0]={tl.Contains(_traitIds[0])} 含[1]={tl.Contains(_traitIds[1])}");
+
+            // ② 满意度写入测试：控件改 42，看模型是否跟随
+            numSati.Value = 42m;
+            Application.DoEvents();
+            sb.AppendLine($"满意度写入: 控件=42 -> 模型={(_sel.Satisfaction ?? -1):F1}");
         }
         sb.AppendLine($"提示条: {lblStatus.Text}");
         return sb.ToString();

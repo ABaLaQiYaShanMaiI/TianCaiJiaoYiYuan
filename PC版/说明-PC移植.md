@@ -9,22 +9,26 @@
 
 | 文件 | 用途 |
 |---|---|
-| `启动游戏.bat` | **双击即玩**（推荐） |
-| `启动游戏-控制台排障.bat` | 带控制台启动，能看到日志（出问题先用这个） |
-| `打开存档文件夹.bat` | 打开存档目录，方便备份/迁移 |
+| `启动游戏.bat` | **双击即玩** |
+| `存档修改器.bat` | 图形界面存档修改器（改数值/能力/特质/满意度、一键科研） |
 
 目录结构：
 
 ```
 PC版\
-├─ 启动游戏.bat / 启动游戏-控制台排障.bat / 打开存档文件夹.bat
+├─ 启动游戏.bat / 存档修改器.bat
 ├─ engine\   Godot 4.7.2 stable .NET 运行器（含 GodotSharp）
 ├─ game\     游戏工程（资源 + 程序集 + 构建壳）
-├─ _原始程序集备份\   未修改的 BubbleYears.dll / BubbleYears.Simulation.dll
-└─ _移植工具\         patcher（打补丁）、verify（逻辑验证）源码
+│  ├─ saves\  ★存档目录（跟着游戏走，整个 PC版 拷走即可继续玩）
+│  └─ port\   移植版附加脚本（诊断/快捷键）
+├─ 工具\SaveEditorGui\   存档修改器（图形界面，单文件）
+├─ _原始程序集备份\       未修改的 BubbleYears.dll / BubbleYears.Simulation.dll
+└─ _移植工具\            patcher（打补丁）、verify（逻辑验证）、修改器源码
 ```
 
-> 整个 `PC版` 文件夹可以整体移动到其他盘/目录，路径变了也能跑（脚本用的是相对路径）。
+> 存档位置：**`PC版\game\saves`**（v1.0.5 起从 `%APPDATA%` 迁移过来）。
+> 旧存档迁移：把 `%APPDATA%\Godot\app_userdata\泡沫年代 - Bubble Years\saves` 里的文件复制到 `PC版\game\saves`，
+> `settings.json` 放到 `PC版\game\` 即可。
 
 ---
 

@@ -20,3 +20,7 @@
 Thumbs.db
 desktop.ini
 .DS_Store
+
+# 便携存档（随游戏目录，不入库）
+/PC版/game/saves/
+/PC版/game/settings.json

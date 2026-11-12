@@ -71,7 +71,12 @@ public partial class MainForm
 
         clbTraits.ItemCheck += (_, e) =>
         {
-            if (_binding || _sel == null) return;
+            if (_binding) return;
+            if (_sel == null)
+            {
+                AutoSelectFirstEmployee();
+                if (_sel == null) return;
+            }
             if (e.Index < 0 || e.Index >= _traitIds.Count) return;
             string id = _traitIds[e.Index];
             _sel.Traits ??= new List<string>();
@@ -96,6 +101,7 @@ public partial class MainForm
             }
             _dirty = true;
             BuildPeopleList();
+            AutoSelectFirstEmployee();
             MessageBox.Show($"已把当前六项能力套用到 {_people.Count} 名员工");
         };
 
@@ -106,6 +112,7 @@ public partial class MainForm
             foreach (var e in _people) e.Satisfaction = v;
             _dirty = true;
             BuildPeopleList();
+            AutoSelectFirstEmployee();
             MessageBox.Show($"已把满意度 {v:F0} 套用到 {_people.Count} 名员工");
         };
     }
